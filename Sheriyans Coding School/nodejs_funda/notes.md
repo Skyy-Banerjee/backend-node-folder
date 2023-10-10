@@ -43,7 +43,9 @@ figlet('Skyy here!!', function (err, data) {
 ### Express_JS
 
 //Framework for NodeJS
+
 //Express usecase(s) => Routing
+
 //Routing => GET/POST/PUT/DELETE/PATCH
 
 ```js
@@ -72,13 +74,17 @@ app.listen(port, () => {
 ### Nodemon
 
 //npm i nodemon -g
+
 //nodemon script(.js)
 
 ### middleware
 
 //A function that runs before EVERY route
+
 //If we wanna do something before the router is hit, we use middlewares.
+
 //If middleware runs, the request is jammed! Solution?
+
 => next(); //A small push
 
 ```js
