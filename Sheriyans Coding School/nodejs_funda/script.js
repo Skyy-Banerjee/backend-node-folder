@@ -1,30 +1,36 @@
 //Express.js
+//Server code
 const express = require('express');
 const app = express();
-const port = 5000;
+const port = 5001;
 
-//2 middlewares
-app.use(function (req, res, next) {
-	console.log('middleware running!');
-	next();
-});
+//Configuring EJS
+app.set('view engine', 'ejs');
 
-app.use(function (req, res, next) {
-	console.log('Hello from middleware 2!');
-	next();
-});
+//Static files
+app.use(express.static('./public'));
 
 app.get('/', (req, res) => {
-	res.send('Hello World 1234!'); //localhost:5000/
+	res.render('index', { age: 12 }); //localhost:5001/
+});
+app.get('/contact', (req, res) => {
+	res.render('contact', { name: 'Soumadip' }); //localhost:5001/contact
 });
 
-app.get('/page1', (req, res) => {
-	res.send('<h1>Page 1</h1>'); //localhost:5000/page1
+//Err. handling with Express_JS
+app.get('/error', (req, res) => {
+	throw Error('Something went wrong!')
 });
 
-app.get('/banerjee', (req, res) => {
-	res.send('<h2>Dev. Banerjee</h2>'); //localhost:5000/banerjee
+app.use(function errorHandler(err, req, res, next) {
+	if (res.headersSent) {
+		return next(err);
+	}
+	res.status(500);
+	res.render('error', { error: err });
 });
+
+
 
 app.listen(port, () => {
 	console.log(`Example app listening on port ${port}`);
